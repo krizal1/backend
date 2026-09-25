@@ -17,5 +17,13 @@ def save_data():
         f.write(text + "\n")
     return jsonify({"status": "ok"})
 
+@app.route("/api/data", methods=["GET"])
+def read_data():
+    if not os.path.exists(DATA_FILE):
+        return jsonify({"content": []})
+    with open(DATA_FILE, "r", encoding="utf-8") as f:
+        lines = [line.strip("\n") for line in f if line.strip()]
+    return jsonify({"content": lines})
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000, debug=True)
