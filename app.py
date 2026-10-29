@@ -7,7 +7,6 @@ CORS(app)
 
 DATA_FILE = os.path.join(os.path.dirname(__file__), "data.txt")
 
-
 @app.route("/api/data", methods=["POST"])
 def save_data():
     payload = request.get_json(silent=True) or {}
@@ -18,7 +17,6 @@ def save_data():
         f.write(text + "\n")
     return jsonify({"status": "ok"})
 
-
 @app.route("/api/data", methods=["GET"])
 def read_data():
     if not os.path.exists(DATA_FILE):
@@ -27,6 +25,5 @@ def read_data():
         lines = [line.strip("\n") for line in f if line.strip()]
     return jsonify({"content": lines})
 
-
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
